@@ -1,3 +1,52 @@
 body {
-    background-color: skyblue;
+    margin: 0 auto;
+    width: 70%;
+}
+
+.main {
+    padding: 0.8em;
+}
+
+h1 {
+    border-bottom: 4px double #ccc;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.content {
+    width: 75%;
+    padding: 0.5em;
+}
+
+.sidebar {
+    width: 20%;
+    padding: 0.5em;
+}
+
+footer {
+    border-top: 4px double #ccc;
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+}
+
+@keyframes colors {
+    0%   {color: red;}
+    25%  {color: yellow;}
+    50%  {color: blue;}
+    100% {color: green;}
+}
+
+#luckynbr {
+    font-size: 200px;
+    text-align: center;
+    color: red;
+    animation-name: colors;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    /* background-image: url("../images/confetti.jpg"); */
+    /* background-size: cover; */
 }

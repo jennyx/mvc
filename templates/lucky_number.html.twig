@@ -2,10 +2,13 @@
 
 {% extends "base.html.twig" %}
 
-{% block title %}Magic number{% endblock %}
+{% block title %}Lucky number{% endblock %}
 
 {% block body %}
-    <h1>Magic number</h1>
-    <p>Welcome to my awesome magical homepage.</p>
-    <p>This is the current magic number: {{ number }}</p>
+    <h1>Lucky number</h1>
+    <p>Welcome to my awesome magical homepage!</p>
+    <p>This is the current magical lucky number: </p>
+    <p id="luckynbr" style="background: url({{ asset('img/confetti.jpg') }})">
+    {# <p id="luckynbr"> #}
+        {{ number }}</p>
 {% endblock %}

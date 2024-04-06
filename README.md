@@ -1,4 +1,4 @@
-![image](./public/img/)
+![image](./public/img/symfony.png)
 
 # MVC
 
