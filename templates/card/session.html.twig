@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Card game{% endblock %}
+
+{% block main %}
+<p>The session contains:</p>
+
+{{ dump(session) }}
+
+{{ include('flash.html.twig') }}
+
+<form method="post" action="">
+    <p>
+        <input type="submit" name="delete" value="Delete session"
+            onClick="this.form.action='{{ path('session_delete') }}';"
+        >
+    </p>
+</form>
+
+{% endblock %}

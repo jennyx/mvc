@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LuckyControllerJson
 {
     #[Route("/api/quote", name:"quote")]
-    public function jsonNumber(): Response
+    public function quote(): Response
     {
         $data = [
             '1' => 'Life is like riding a bicycle. To keep your balance you must keep moving. - Albert Einstein',
