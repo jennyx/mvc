@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Card\CardGraphic;
+use App\Card\DeckOfCards;
+
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,5 +20,17 @@ class CardController extends AbstractController
         return $this->render('card/home.html.twig');
     }
 
-    
+    #[Route("/card/deck", name: "deck")]
+    public function deck(SessionInterface $session
+    ): Response {
+        $deck = new DeckOfCards();
+        $deckGraphics = new CardGraphic();
+        $session->set("deck", $deck->deck());
+
+        $data = [
+            "cards" => $session->get("deck")
+        ];
+
+        return $this->render('card/deck.html.twig', $data);
+    }
 }
