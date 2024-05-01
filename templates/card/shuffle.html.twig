@@ -4,6 +4,10 @@
 
 {% block main %}
 
-<h1>Card shuffle</h1>
+<h1>Shuffled cards</h1
+
+{% for card in shuffledCards %}
+    <span class="card">{{ card }}</span>
+{% endfor %}
 
 {% endblock %}

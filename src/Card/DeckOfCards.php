@@ -18,17 +18,22 @@ class DeckOfCards {
             $graphicCard = new CardGraphic($i);
             $this->deck[] = $graphicCard->getAsString();
         }
-        return $this->deck; 
     }
 
-    public function getDeck(): string
+    public function getDeck(): array
     {
-        $deckOfCards = $this->deck();
+        $deckOfCards = [];
+        $deck = $this->deck();
+        foreach ($this->deck as $card) {
+            $deckOfCards[] = $card;
+        }
         return $deckOfCards;
     }
 
-    public function shuffledCards() 
+    public function shuffledCards(): array
     {
-        return shuffle($this->deck);
+        $shuffledCards = $this->getDeck();
+        shuffle($shuffledCards);
+        return $shuffledCards;
     }
 }
