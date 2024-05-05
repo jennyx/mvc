@@ -4,6 +4,9 @@
 
 {% block main %}
 
-<h1>Card draw</h1>
+<h1>Draw card</h1>
+<span class="card">{{ card }}</span>
+{{ include('flash.html.twig') }}
+<p>Cards left in deck: {{ cardsLeft }}</p>
 
 {% endblock %}

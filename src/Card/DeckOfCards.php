@@ -2,7 +2,6 @@
 
 namespace App\Card;
 
-use App\Card\Card;
 use App\Card\CardGraphic;
 
 class DeckOfCards {
@@ -20,7 +19,7 @@ class DeckOfCards {
         }
     }
 
-    public function getDeck(): array
+    public function getDeck()
     {
         $deckOfCards = [];
         $deck = $this->deck();
@@ -30,10 +29,26 @@ class DeckOfCards {
         return $deckOfCards;
     }
 
-    public function shuffledCards(): array
+    public function shuffledDeck()
     {
-        $shuffledCards = $this->getDeck();
-        shuffle($shuffledCards);
-        return $shuffledCards;
+        $shuffledDeck = $this->getDeck();
+        shuffle($shuffledDeck);
+        return $shuffledDeck;
     }
+
+    public function countDeck()
+    {
+        return count($this->getDeck());
+    }
+
+    public function drawCard()
+    {
+        // $deck = $this->getDeck();
+        if (empty($deck)) {
+            return null;
+        }
+        // $this->hand = array_shift($deck);
+        return array_shift($deck);
+    }
+
 }
