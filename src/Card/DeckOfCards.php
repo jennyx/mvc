@@ -4,16 +4,16 @@ namespace App\Card;
 
 use App\Card\CardGraphic;
 
-class DeckOfCards {
-
+class DeckOfCards
+{
     private $deck = [];
 
-    public function deck() 
+    public function deck()
     {
         $cg = new CardGraphic();
         $values = count($cg->deckOfCards);
 
-        for ($i=1; $i <= $values; $i++) {
+        for ($i = 1; $i <= $values; $i++) {
             $graphicCard = new CardGraphic($i);
             $this->deck[] = $graphicCard->getAsString();
         }

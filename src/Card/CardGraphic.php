@@ -8,7 +8,7 @@ class CardGraphic extends Card
     {
         parent::__construct($value, $suit);
     }
-    
+
     private $hearts = [
         "🂱", "🂲", "🂳", "🂴", "🂵", "🂶", "🂷", "🂸", "🂹", "🂺", "🂻", "🂽", "🂾"
     ];
@@ -34,6 +34,6 @@ class CardGraphic extends Card
 
     public function getAsString(): string
     {
-        return $this->deckOfCards[$this->value -1];
+        return $this->deckOfCards[$this->value - 1];
     }
 }

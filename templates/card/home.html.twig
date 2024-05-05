@@ -5,11 +5,11 @@
 {% block main %}
 
 <h1>Card game</h1>
-<p>This is a card game. </p>
+<p>Jag har tre klasser Card, CardGraphic och DeckOfCards. </p>
 
 <a href="{{ path('deck') }}">Show deck of cards</a>
 <a href="{{ path('shuffle') }}">Shuffled cards</a>
 <a href="{{ path('draw') }}">Draw card from deck</a>
-<a href="{{ path('draw_many') }}">Draw cards from deck</a>
+<a href="{{ path('draw_many', { "num": 0}) }}">Draw cards from deck</a>
 
 {% endblock %}
