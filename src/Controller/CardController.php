@@ -6,6 +6,7 @@ use App\Card\CardGraphic;
 use App\Card\DeckOfCards;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,12 +35,16 @@ class CardController extends AbstractController
         return $this->render('card/deck.html.twig', $data);
     }
 
-    #[Route("card/deck/shuffle", name: "shuffle")]
+    #[Route("/card/deck/shuffle", name: "shuffle")]
     public function shuffle(
         SessionInterface $session
     ): Response {
         $deck = new DeckOfCards();
         $session->set("shuffle", $deck->shuffledDeck());
+        if ($session->has('drawDeck')) {
+            $deck = new DeckOfCards();
+            $session->set("drawDeck", $deck->shuffledDeck());
+        }
 
         $data = [
             "shuffledCards" => $session->get("shuffle")
@@ -48,7 +53,7 @@ class CardController extends AbstractController
         return $this->render('card/shuffle.html.twig', $data);
     }
 
-    #[Route("card/deck/draw", name: "draw")]
+    #[Route("/card/deck/draw", name: "draw")]
     public function draw(
         SessionInterface $session
     ): Response {
@@ -78,11 +83,12 @@ class CardController extends AbstractController
         return $this->render('card/draw.html.twig', $data);
     }
 
-    #[Route("card/deck/draw/{num<\d+>}", name: "draw_many")]
-    public function drawMany(
+    #[Route("/card/deck/draw/{num<\d+>}", name: "draw_many")]
+    public function drawManyCallback(
         int $num,
         SessionInterface $session
-    ): Response {
+    ): Response
+    {
 
         if (!$session->has('drawDeck')) {
             $deck = new DeckOfCards();
@@ -104,16 +110,32 @@ class CardController extends AbstractController
                 'warning',
                 'Not enough cards in deck!'
             );
-        } 
-        $cards = array_shift($deck);
+        }
+        
+        $cards = [];
+        for ($i = 1; $i <= $num; $i++) {
+            array_push($cards, array_shift($deck));
+        }
 
         $session->set("drawDeck", $deck);
 
         $data = [
-            "card" => $cards,
-            "cardsLeft" => $cardsLeft
+            "cards" => $cards,
+            "cardsLeft" => count($deck)
         ];
 
-        return $this->render('card/draw.html.twig', $data);
+
+        return $this->render('card/draw_many.html.twig', $data);
     }
+
+    #[Route("/card/deck/draw_many", name: "draw_many_post", methods: ['POST'])]
+    public function drawMany(
+        Request $request
+    ): Response
+    {
+        $cardsLeft = $request->request->get('numCards');
+
+        return $this->redirectToRoute('draw_many', ['num' => $cardsLeft]);
+    }
+    
 }
