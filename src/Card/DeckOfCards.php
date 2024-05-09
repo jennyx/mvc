@@ -43,11 +43,10 @@ class DeckOfCards
 
     public function drawCard()
     {
-        // $deck = $this->getDeck();
         if (empty($deck)) {
             return null;
         }
-        // $this->hand = array_shift($deck);
+
         return array_shift($deck);
     }
 

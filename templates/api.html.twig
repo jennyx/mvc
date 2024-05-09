@@ -1,10 +1,29 @@
 {% extends "base.html.twig" %}
 
-{% block title %}About{% endblock %}
+{% block title %}API{% endblock %}
 
 {% block main %}
 
 <h1>API</h1>
-    <a href="{{ path('quote') }}">Quote</a>
+    <form method= "" action="{{ path('quote') }}">
+        <input type="submit" value="api/quote" />
+    </form>
+
+    <form method= "get" action="{{ path('api_deck') }}">
+        <input type="submit" value="api/deck" />
+    </form>
+
+    <form method= "post" action="{{ path('api_shuffle') }}">
+        <input type="submit" value="api/deck/shuffle" />
+    </form>
+
+    <form method= "post" action="{{ path('api_draw') }}">
+        <input type="submit" value="api/deck/draw" />
+    </form>
+
+    <form method="post" action="{{ path('api_draw_many_post') }}">
+        <input type="number" name="numCards" min="1" max="52" value="1">
+        <input type="submit" name="do_it" value="Draw cards">
+    </form>
 
 {% endblock %}

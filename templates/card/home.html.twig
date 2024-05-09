@@ -5,11 +5,18 @@
 {% block main %}
 
 <h1>Card game</h1>
-<p>Jag har tre klasser Card, CardGraphic och DeckOfCards. </p>
 
-<a href="{{ path('deck') }}">Show deck of cards</a>
-<a href="{{ path('shuffle') }}">Shuffled cards</a>
-<a href="{{ path('draw') }}">Draw card from deck</a>
-<a href="{{ path('draw_many', { "num": 0}) }}">Draw cards from deck</a>
+<ul>
+    <li><a href="{{ path('deck') }}">Show deck of cards</a></li>
+    <li><a href="{{ path('shuffle') }}">Shuffled cards</a></li>
+    <li><a href="{{ path('draw') }}">Draw a card from deck</a></li>
+    <li><a href="{{ path('draw_many', { "num": 0}) }}">Draw cards from deck</a></li>
+</ul>
+
+<p>På din landdningssida, berätta kort om strukturen på dina klasser, vilka klasser har du 
+    och hur är de relaterade till varandra. Rita ett UML klass diagram och visa i sidan.</p>
+
+<p>CardGraphic klassen ärver från Card klassen. Mellan CardGraphic och DeckOfCards är det en komposition.</p>
+<img src="{{ asset('img/cardgame.jpg') }}" alt="class_diagram">
 
 {% endblock %}

@@ -8,64 +8,66 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CardController extends AbstractController
+class CardControllerJson extends AbstractController
 {
-    #[Route("/card", name: "card")]
-    public function card(
-        SessionInterface $session
-    ): Response {
-        return $this->render('card/home.html.twig');
-    }
-
-    #[Route("/card/deck", name: "deck")]
+    #[Route("/api/deck", name: "api_deck", methods: ['GET'])]
     public function deck(
         SessionInterface $session
     ): Response {
         $deck = new DeckOfCards();
-        $session->set("deck", $deck->getDeck());
 
         $data = [
-            "cards" => $session->get("deck")
+            "apiDeck" => $deck->getDeck()
         ];
 
-        return $this->render('card/deck.html.twig', $data);
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+
+        return $response;
     }
 
-    #[Route("/card/deck/shuffle", name: "shuffle")]
+    #[Route("/api/deck/shuffle", name: "api_shuffle", methods: ['POST'])]
     public function shuffle(
         SessionInterface $session
     ): Response {
         $deck = new DeckOfCards();
-        $session->set("shuffle", $deck->shuffledDeck());
-        if ($session->has('drawDeck')) {
-            $deck = new DeckOfCards();
-            $session->set("drawDeck", $deck->shuffledDeck());
+        $session->set("apiShuffle", $deck->shuffledDeck());
+        if ($session->has('apiDrawDeck')) {
+            $session->set("apiDrawDeck", $deck->shuffledDeck());
         }
 
         $data = [
-            "shuffledCards" => $session->get("shuffle")
+            "apiShuffledCards" => $deck->shuffledDeck()
         ];
 
-        return $this->render('card/shuffle.html.twig', $data);
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+
+        return $response;
     }
 
-    #[Route("/card/deck/draw", name: "draw")]
+    #[Route("/api/deck/draw", name: "api_draw", methods: ['POST'])]
     public function draw(
         SessionInterface $session
     ): Response {
 
-        if (!$session->has('drawDeck')) {
+        if (!$session->has('apiDrawDeck')) {
             $deck = new DeckOfCards();
-            $session->set("drawDeck", $deck->shuffledDeck());
+            $session->set("apiDrawDeck", $deck->shuffledDeck());
         }
 
-        $deck = $session->get("drawDeck");
+        $deck = $session->get("apiDrawDeck");
         $card = array_shift($deck);
 
-        $session->set("drawDeck", $deck);
+        $session->set("apiDrawDeck", $deck);
 
         if (empty($deck)) {
             $this->addFlash(
@@ -79,22 +81,27 @@ class CardController extends AbstractController
             "cardsLeft" => count($deck)
         ];
 
-        return $this->render('card/draw.html.twig', $data);
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+
+        return $response;
     }
 
-    #[Route("/card/deck/draw/{num<\d+>}", name: "draw_many")]
+    #[Route("/api/deck/draw/{num<\d+>}", name: "api_draw_many")]
     public function drawManyCallback(
         int $num,
         SessionInterface $session
     ): Response
     {
 
-        if (!$session->has('drawDeck')) {
+        if (!$session->has('apiDrawDeck')) {
             $deck = new DeckOfCards();
-            $session->set("drawDeck", $deck->shuffledDeck());
+            $session->set("apiDrawDeck", $deck->shuffledDeck());
         }
 
-        $deck = $session->get("drawDeck");
+        $deck = $session->get("apiDrawDeck");
         $cardsLeft = count($deck);
 
         if (empty($deck)) {
@@ -116,24 +123,29 @@ class CardController extends AbstractController
             array_push($cards, array_shift($deck));
         }
 
-        $session->set("drawDeck", $deck);
+        $session->set("apiDrawDeck", $deck);
 
         $data = [
             "cards" => $cards,
             "cardsLeft" => count($deck)
         ];
 
-        return $this->render('card/draw_many.html.twig', $data);
+        $response = new JsonResponse($data);
+        $response->setEncodingOptions(
+            $response->getEncodingOptions() | JSON_PRETTY_PRINT
+        );
+
+        return $response;
     }
 
-    #[Route("/card/deck/draw_many", name: "draw_many_post", methods: ['POST'])]
+    #[Route("/card/deck/draw_many_post", name: "api_draw_many_post", methods: ['POST'])]
     public function drawMany(
         Request $request
     ): Response
     {
         $cardsLeft = $request->request->get('numCards');
 
-        return $this->redirectToRoute('draw_many', ['num' => $cardsLeft]);
+        return $this->redirectToRoute('api_draw_many', ['num' => $cardsLeft]);
     }
     
 }

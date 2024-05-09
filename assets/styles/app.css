@@ -108,3 +108,13 @@ ul.dicearea li {
 .card {
     font-size: 9em;
 }
+
+/* Card */
+ul {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
