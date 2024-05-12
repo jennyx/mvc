@@ -13,6 +13,7 @@
         <li><a href="#kmom06">kmom06</a></li>
         <li><a href="#kmom07">kmom07</a></li>
     </ul>
+
     <section>
         <h2 id="kmom01">Kmom01</h2>
         <p><b>Berätta kort om dina förkunskaper och tidigare erfarenheter kring objektorientering.</b><br>
@@ -47,12 +48,41 @@
             TIL för kmom01 är PHP namespaces som var helt nytt för mig.
         </p>
     </section>
+
     <section>
         <h2 id="kmom02">Kmom02</h2>
-        <p><b> </b><br>
+        <p><b>Förklara kort de objektorienterade konstruktionerna arv, komposition, interface och trait och 
+            hur de används i PHP.</b><br>
+            Arv - ärver metoder, properties och konstanter från föräldraklassen. Man kan ändra synligheten till 
+            public men inte till private i den ärvda klassen.
+            Komposition - en “hård koppling” mellan två objekt, utan det ena objektet kan det andra inte finnas, tex “Ett hus 
+            har rum”.
+            Interface -  visar vilka metoder en viss klass ska implementera, som en grund implementation. Om en klass implementerar 
+            interface, lovar den att metoder uppfylls. 
+            Trait - fristående och återanvändbar koddel som klasser kan använda. Återanvänds när flera arv (multipelt arv) inte 
+            kan användas, som tex i PHP.
+            Dessa OO konstruktioner används för en bättre och snyggare kodstruktur, för en lättare underhållning och gör den mer 
+            testbar. Använd hellre composition än arv, och hellre trait och interface.
         </p>
-        <p></p>
+
+        <p><b>Berätta om din implementation från uppgiften. Hur löste du uppgiften, är du nöjd/missnöjd, vilken 
+            förbättringspotential ser du i din koden och dina klasser?</b><br>
+            Jag är relativt nöjd med hur jag delade upp och implementerade koden baserad på tiden jag hade. Min kod utgick jag 
+            från övningen vi hade. Jag tror jag hade nog kunnat ha ytterligare en klass CardHand för draw metoden och för att 
+            hålla alla dragna kort istället för att spara dem i controllern, kanske gör förändringen/förbättringen i nästa kursmoment. 
+            Jag hade kunnat konstruera så att korten hämtas genom value och suit. Jag har just nu gjort att korten bara behöver 
+            value för att hämtas.
+        </p>
+
+        <p><b>Vilka är dina reflektioner så här långt med att jobb i Symfony med applikationskod enligt MVC?</b><br>
+            För tillfället tycker Symfony känns helt okej, har inte så mycket att kommentera på den.
+        </p>
+
+        <p><b>Vilken är din TIL för detta kmom?</b><br>
+            Min TIL är trait och interface.
+        </p>
     </section>
+
     <section>
         <h2 id="kmom03">Kmom03</h2>
         <p><b> </b><br>

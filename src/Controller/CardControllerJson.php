@@ -37,9 +37,10 @@ class CardControllerJson extends AbstractController
         SessionInterface $session
     ): Response {
         $deck = new DeckOfCards();
-        $session->set("apiShuffle", $deck->shuffledDeck());
         if ($session->has('apiDrawDeck')) {
             $session->set("apiDrawDeck", $deck->shuffledDeck());
+        } else {
+            $session->set("apiShuffle", $deck->shuffledDeck());
         }
 
         $data = [
@@ -93,8 +94,7 @@ class CardControllerJson extends AbstractController
     public function drawManyCallback(
         int $num,
         SessionInterface $session
-    ): Response
-    {
+    ): Response {
 
         if (!$session->has('apiDrawDeck')) {
             $deck = new DeckOfCards();
@@ -117,7 +117,7 @@ class CardControllerJson extends AbstractController
                 'Not enough cards in deck!'
             );
         }
-        
+
         $cards = [];
         for ($i = 1; $i <= $num; $i++) {
             array_push($cards, array_shift($deck));
@@ -141,11 +141,10 @@ class CardControllerJson extends AbstractController
     #[Route("/card/deck/draw_many_post", name: "api_draw_many_post", methods: ['POST'])]
     public function drawMany(
         Request $request
-    ): Response
-    {
+    ): Response {
         $cardsLeft = $request->request->get('numCards');
 
         return $this->redirectToRoute('api_draw_many', ['num' => $cardsLeft]);
     }
-    
+
 }

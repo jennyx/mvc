@@ -86,8 +86,7 @@ class CardController extends AbstractController
     public function drawManyCallback(
         int $num,
         SessionInterface $session
-    ): Response
-    {
+    ): Response {
 
         if (!$session->has('drawDeck')) {
             $deck = new DeckOfCards();
@@ -110,7 +109,7 @@ class CardController extends AbstractController
                 'Not enough cards in deck!'
             );
         }
-        
+
         $cards = [];
         for ($i = 1; $i <= $num; $i++) {
             array_push($cards, array_shift($deck));
@@ -129,11 +128,10 @@ class CardController extends AbstractController
     #[Route("/card/deck/draw_many", name: "draw_many_post", methods: ['POST'])]
     public function drawMany(
         Request $request
-    ): Response
-    {
+    ): Response {
         $cardsLeft = $request->request->get('numCards');
 
         return $this->redirectToRoute('draw_many', ['num' => $cardsLeft]);
     }
-    
+
 }
